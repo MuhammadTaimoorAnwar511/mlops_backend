@@ -11,15 +11,13 @@ model = joblib.load("bitcoin_model.pkl")
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Get the JSON data from the request
-    data = request.get_json()
-    features = np.array(data['features']).reshape(1, -1)
-    
-    # Predict the next day's closing price
-    prediction = model.predict(features)
-    
-    # Return the prediction as a JSON response
-    return jsonify({'prediction': prediction[0]})
+    try:
+        data = request.get_json()
+        features = np.array(data['features']).reshape(1, -1)
+        prediction = model.predict(features)
+        return jsonify({'prediction': prediction[0]})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/')
 def index():
