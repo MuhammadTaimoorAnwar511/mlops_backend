@@ -19,9 +19,9 @@ X = data[['Close']]
 y = data['Target']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train model
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-# Save model with compression
-joblib.dump(model, "bitcoin_model.pkl", compress=3)  # Using compression to reduce model size
+try:
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    joblib.dump(model, "bitcoin_model.pkl", compress=3)
+except Exception as e:
+    print(f"Error during training or saving model: {e}")

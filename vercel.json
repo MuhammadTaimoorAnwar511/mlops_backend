@@ -2,8 +2,7 @@
   "version": 2,
   "name": "my-bitcoin-project",
   "builds": [
-    { "src": "app.py", "use": "@vercel/python" },
-    { "src": "templates/index.html", "use": "@vercel/static" }
+    { "src": "app.py", "use": "@vercel/python" }
   ],
   "routes": [
     { "src": "/predict", "dest": "/app.py" }, 

@@ -13,10 +13,15 @@ model = joblib.load("bitcoin_model.pkl")
 def predict():
     try:
         data = request.get_json()
+        if not data or 'features' not in data:
+            raise ValueError("Invalid input data")
+        
         features = np.array(data['features']).reshape(1, -1)
         prediction = model.predict(features)
+        
         return jsonify({'prediction': prediction[0]})
     except Exception as e:
+        print(f"Error: {e}")
         return jsonify({'error': str(e)}), 500
 
 @app.route('/')
