@@ -10,7 +10,7 @@
         async function getPrediction() {
             const closePrice = document.getElementById('close-price').value;
 
-            // Ensure the fetch URL is correct and points to your Flask API
+            // Send POST request to Flask API's /predict endpoint
             const response = await fetch('/predict', {
                 method: 'POST',
                 headers: {

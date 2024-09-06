@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 import joblib
 import numpy as np
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Load the model (ensure the model file is correctly placed)
 model = joblib.load("bitcoin_model.pkl")
