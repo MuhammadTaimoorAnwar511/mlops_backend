@@ -1,6 +1,4 @@
 *.pyc
 __pycache__/
 .git/
-.venv/
 model_train.py
-test_prediction.py
