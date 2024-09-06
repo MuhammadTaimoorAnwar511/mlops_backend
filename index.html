@@ -1,0 +1,36 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Price Prediction</title>
+    <script>
+        async function getPrediction() {
+            const closePrice = document.getElementById('close-price').value;
+
+            // Send POST request to Flask API
+            const response = await fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ features: [parseFloat(closePrice)] })
+            });
+
+            // Get and display the prediction result
+            const data = await response.json();
+            document.getElementById('prediction-result').innerText = `Next day's closing price will be: ${data.prediction}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Bitcoin Price Prediction</h1>
+    <form onsubmit="event.preventDefault(); getPrediction();">
+        <label for="close-price">Enter today's closing price:</label>
+        <input type="number" id="close-price" step="any" required>
+        <button type="submit">Get Prediction</button>
+    </form>
+    <p id="prediction-result"></p>
+</body>
+</html>
