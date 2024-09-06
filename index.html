@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitcoin Price Prediction Model</title>
     <script>
+        // JavaScript function to handle prediction request
         async function getPrediction() {
             const closePrice = document.getElementById('close-price').value;
 
-            // Send POST request to Flask API
-            const response = await fetch('http://127.0.0.1:5000/predict', {
+            // Send POST request to Flask API's /predict endpoint
+            const response = await fetch('/predict', {  <!-- Updated fetch URL here -->
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

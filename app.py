@@ -16,7 +16,7 @@ def predict():
 
 @app.route('/')
 def index():
-    return send_from_directory('.', 'template/index.html')
+    return send_from_directory('.', 'index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
