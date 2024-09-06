@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,9 @@
     <script>
         async function getPrediction() {
             const closePrice = document.getElementById('close-price').value;
-            const apiUrl = `${window.location.origin}/predict`; 
+
             // Send POST request to Flask API
-            const response = await fetch(apiUrl, {
+            const response = await fetch('http://127.0.0.1:5000/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

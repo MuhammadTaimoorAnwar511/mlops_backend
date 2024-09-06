@@ -3,22 +3,17 @@
   "builds": [
     {
       "src": "app.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "250mb",
-        "runtime": "python3.12"
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/app.py"
+      "src": "/predict",
+      "dest": "app.py"
     },
     {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "name": "my-bitcoin-project"
+  ]
 }
