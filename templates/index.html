@@ -1,17 +1,17 @@
-<!-- index.html -->
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Price Prediction </title>
+    <title>Bitcoin Price Prediction</title>
     <script>
         // JavaScript function to handle prediction request
         async function getPrediction() {
             const closePrice = document.getElementById('close-price').value;
 
-            // Send POST request to Flask API's /predict endpoint
-            const response = await fetch('/predict', {  <!-- Updated fetch URL here -->
+            // Ensure the fetch URL is correct and points to your Flask API
+            const response = await fetch('/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
