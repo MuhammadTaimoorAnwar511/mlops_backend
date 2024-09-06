@@ -1,8 +1,8 @@
-import yfinance as yf
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-import joblib
+import yfinance as yf  # For fetching Bitcoin price data
+import pandas as pd  # For data manipulation
+from sklearn.model_selection import train_test_split  # For splitting the dataset
+from sklearn.linear_model import LinearRegression  # For model training
+import joblib  # For saving the trained model
 
 # Fetch Bitcoin price data
 ticker = "BTC-USD"
@@ -24,4 +24,4 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 
 # Save model with compression
-joblib.dump(model, "bitcoin_model.pkl", compress=3)
+joblib.dump(model, "bitcoin_model.pkl", compress=3)  # Using compression to reduce model size
