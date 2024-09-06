@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import joblib
 import numpy as np
+import os
 
 app = Flask(__name__)
 model = joblib.load("bitcoin_model.pkl")
