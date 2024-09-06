@@ -1,1 +1,1 @@
-fine
+VERCEL_TOKEN= m5KGRpYlkExcVaOoNcxcwPxT
