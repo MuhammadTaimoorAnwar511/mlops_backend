@@ -26,4 +26,4 @@ jobs:
 
     - name: Deploy to Vercel
       run: |
-        vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes --project my-bitcoin-project
+        vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
