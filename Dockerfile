@@ -1,17 +1,20 @@
-# Use python:3.12-slim as the base image
+# Use the official Python 3.12 slim image
 FROM python:3.12-slim
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the requirements file first
+# Copy requirements file
 COPY requirements.txt .
 
-# Install dependencies using pip3
+# Upgrade pip, setuptools, and wheel
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
+
+# Install dependencies
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code
 COPY . .
 
-# Command to run your application
-CMD ["python3", "app.py"]
+# Specify the command to run the application
+CMD ["python", "app.py"]
