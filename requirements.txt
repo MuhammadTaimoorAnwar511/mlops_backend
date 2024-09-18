@@ -1,6 +1,8 @@
-Flask==2.0.3
-flask-cors==3.0.10
-joblib==1.1.0
-numpy==1.21.2
-scikit-learn==0.24.2
-yfinance==0.1.63
+flask
+joblib
+numpy
+yfinance
+pandas
+scikit-learn
+joblib
+flask-cors
