@@ -1,5 +1,5 @@
 # Define variables
-IMAGE_NAME=yourdockerhubusername/bitcoin-predictor:latest
+IMAGE_NAME=taimooranwar/bitcoin-predictor:latest
 
 # Build the Docker image
 build:
