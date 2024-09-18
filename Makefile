@@ -1,18 +1,23 @@
-# Define variables
-IMAGE_NAME=taimooranwar/bitcoin-predictor:latest
+# Variables
+IMAGE_NAME = bitcoin-flask-app
+DOCKER_USERNAME = taimooranwar
+DOCKER_PASSWORD = $(DOCKER_PASSWORD)
 
-# Build the Docker image
+# Build Docker image
 build:
 	docker build -t $(IMAGE_NAME) .
 
-# Push the Docker image to Docker Hub
-push:
-	docker push $(IMAGE_NAME)
-
-# Run the Docker container
+# Run Docker container
 run:
 	docker run -p 5000:5000 $(IMAGE_NAME)
 
-# Stop the container (example if using container name or ID)
-stop:
-	docker stop $(docker ps -q --filter ancestor=$(IMAGE_NAME))
+# Push Docker image to Docker Hub
+push:
+	echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
+	docker tag $(IMAGE_NAME) $(DOCKER_USERNAME)/$(IMAGE_NAME):latest
+	docker push $(DOCKER_USERNAME)/$(IMAGE_NAME):latest
+
+# Clean up Docker images
+clean:
+	docker rmi $(IMAGE_NAME) || true
+	docker rmi $(DOCKER_USERNAME)/$(IMAGE_NAME):latest || true
