@@ -1,5 +1,5 @@
 outs:
-- md5: c4a77c841f49c7637ca2e67763881e65
-  size: 1023
+- md5: 21014a60a58aabc257f32d24930b4071
+  size: 1054
   hash: md5
   path: bitcoin_scaler.pkl

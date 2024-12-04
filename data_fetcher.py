@@ -81,7 +81,7 @@ def main():
     
     # Dynamically calculate the start_date and end_date
     end_date = datetime.now()
-    start_date = end_date - timedelta(days=1 * 30)  # Approximation of 6 months
+    start_date = end_date - timedelta(days=6 * 30)  # Approximation of 6 months
     
     # Use ThreadPoolExecutor for parallel data fetching
     with ThreadPoolExecutor(max_workers=3) as executor:
