@@ -26,7 +26,7 @@ jobs:
       run: |
         echo "docker build -t taimooranwar/mlops-backend:latest ."
 
-    # Push the Docker image to Docker Hub
+    # Push the Docker image to Docker Hubl
     - name: Push Docker Image
       run: |
         echo "docker push taimooranwar/mlops-backend:latest"
