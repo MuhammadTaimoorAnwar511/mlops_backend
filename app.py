@@ -104,26 +104,41 @@ def predict():
     Endpoint for predicting Bitcoin prices using the LSTM model.
     Requires a valid JWT token.
     """
-    if lstm_model is None or scaler is None:
-        return jsonify({"error": "Model or scaler not found"}), 500
-
-    data = request.json
-
-    if not data or "features" not in data:
-        return jsonify({"error": "Features are required for prediction"}), 400
-
     try:
+        # Debugging: Check if model and scaler are loaded
+        if lstm_model is None or scaler is None:
+            print("Debug: Model or scaler not found")  # Debugging statement
+            return jsonify({"error": "Model or scaler not found"}), 500
+
+        # Debugging: Check incoming data
+        data = request.json
+        print(f"Debug: Received data - {data}")  # Debugging statement
+
+        if not data or "features" not in data:
+            print("Debug: Features are missing in the request data")  # Debugging statement
+            return jsonify({"error": "Features are required for prediction"}), 400
+
         # Reshape and scale input features
         features = np.array(data["features"], dtype=float).reshape(-1, 1)
+        print(f"Debug: Features reshaped - {features}")  # Debugging statement
+
         scaled_features = scaler.transform(features)
+        print(f"Debug: Features scaled - {scaled_features}")  # Debugging statement
+
         input_features = np.reshape(scaled_features, (1, scaled_features.shape[0], 1))
+        print(f"Debug: Input features reshaped for prediction - {input_features}")  # Debugging statement
 
         # Perform prediction
         prediction = lstm_model.predict(input_features)
+        print(f"Debug: Raw prediction from model - {prediction}")  # Debugging statement
+
         predicted_price = float(scaler.inverse_transform(prediction)[0][0])  # Ensure JSON serializable
+        print(f"Debug: Predicted price - {predicted_price}")  # Debugging statement
 
         return jsonify({"predicted_price": predicted_price}), 200
     except Exception as e:
+        # Debugging: Log exception details
+        print(f"Debug: Exception occurred - {str(e)}")  # Debugging statement
         return jsonify({"error": str(e)}), 500
 
 
@@ -135,6 +150,8 @@ def protected():
     """
     current_user = get_jwt_identity()  # Now, this returns a string (username)
     return jsonify({"message": f"Welcome, {current_user}! You have access to this protected route."}), 200
+
+
 
 
 @app.route("/", methods=["GET"])
