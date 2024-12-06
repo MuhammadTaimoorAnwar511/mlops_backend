@@ -35,10 +35,23 @@ jwt = JWTManager(app)
 MODEL_PATH = "Model/bitcoin_lstm_model.h5"
 SCALER_PATH = "Model/bitcoin_scaler.pkl"
 
-if os.path.exists(MODEL_PATH) and os.path.exists(SCALER_PATH):
-    lstm_model = load_model(MODEL_PATH)
-    scaler = joblib.load(SCALER_PATH)
-else:
+try:
+    if os.path.exists(MODEL_PATH) and os.path.exists(SCALER_PATH):
+        print(f"Debug: Model path exists - {MODEL_PATH}")
+        print(f"Debug: Scaler path exists - {SCALER_PATH}")
+        
+        # Load the model and scaler
+        lstm_model = load_model(MODEL_PATH)
+        scaler = joblib.load(SCALER_PATH)
+        
+        print("Debug: LSTM model loaded successfully")
+        print("Debug: Scaler loaded successfully")
+    else:
+        print("Debug: Model or scaler files are missing")
+        lstm_model = None
+        scaler = None
+except Exception as e:
+    print(f"Debug: Exception while loading model or scaler - {str(e)}")
     lstm_model = None
     scaler = None
 
@@ -107,38 +120,41 @@ def predict():
     try:
         # Debugging: Check if model and scaler are loaded
         if lstm_model is None or scaler is None:
-            print("Debug: Model or scaler not found")  # Debugging statement
+            print("Debug: Model or scaler not found")
             return jsonify({"error": "Model or scaler not found"}), 500
 
         # Debugging: Check incoming data
         data = request.json
-        print(f"Debug: Received data - {data}")  # Debugging statement
+        print(f"Debug: Received data - {data}")
 
         if not data or "features" not in data:
-            print("Debug: Features are missing in the request data")  # Debugging statement
+            print("Debug: Features are missing in the request data")
             return jsonify({"error": "Features are required for prediction"}), 400
 
         # Reshape and scale input features
         features = np.array(data["features"], dtype=float).reshape(-1, 1)
-        print(f"Debug: Features reshaped - {features}")  # Debugging statement
+        print(f"Debug: Features reshaped - {features}")
 
+        # Scale features
         scaled_features = scaler.transform(features)
-        print(f"Debug: Features scaled - {scaled_features}")  # Debugging statement
+        print(f"Debug: Features scaled - {scaled_features}")
 
+        # Reshape for LSTM input
         input_features = np.reshape(scaled_features, (1, scaled_features.shape[0], 1))
-        print(f"Debug: Input features reshaped for prediction - {input_features}")  # Debugging statement
+        print(f"Debug: Input features reshaped for prediction - {input_features}")
 
         # Perform prediction
         prediction = lstm_model.predict(input_features)
-        print(f"Debug: Raw prediction from model - {prediction}")  # Debugging statement
+        print(f"Debug: Raw prediction from model - {prediction}")
 
-        predicted_price = float(scaler.inverse_transform(prediction)[0][0])  # Ensure JSON serializable
-        print(f"Debug: Predicted price - {predicted_price}")  # Debugging statement
+        # Inverse transform the prediction
+        predicted_price = float(scaler.inverse_transform(prediction)[0][0])
+        print(f"Debug: Predicted price - {predicted_price}")
 
         return jsonify({"predicted_price": predicted_price}), 200
     except Exception as e:
         # Debugging: Log exception details
-        print(f"Debug: Exception occurred - {str(e)}")  # Debugging statement
+        print(f"Debug: Exception occurred - {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
