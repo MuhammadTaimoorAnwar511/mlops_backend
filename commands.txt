@@ -1,3 +1,5 @@
+docker pull tensorflow/tensorflow:2.11.0
+==
 git add Data/bitcoin_prices.csv.dvc
 git add Data/bitcoin_prices_cleaned.csv.dvc
 git add Model/bitcoin_lstm_model.h5.dvc
@@ -6,3 +8,7 @@ git add .gitignore
 git add .
 git commit -m "message"
 git push origin main
+===
+docker build -t mlops-backend .
+===
+docker run -p 5000:5000 mlops-backend
