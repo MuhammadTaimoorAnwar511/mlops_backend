@@ -29,4 +29,4 @@ jobs:
     # Push the Docker image to Docker Hub
     - name: Push Docker Image
       run: |
-        docker push taimooranwar/mlops-backend:latest
+        echo "docker push taimooranwar/mlops-backend:latest"
