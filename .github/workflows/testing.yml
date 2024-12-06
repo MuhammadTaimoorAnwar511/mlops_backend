@@ -14,23 +14,32 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
+    # Build Docker image
+    - name: Build Docker Image
+      run: |
+        docker build -t mlops-backend:latest .
+
+    # Run the backend container
+    - name: Start Backend Container
+      run: |
+        docker run -d --name mlops-backend \
+          -e MONGO_URI="mongodb+srv://i211232:i211232@cluster0.ogy3x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" \
+          -e JWT_SECRET_KEY="secret" \
+          -p 5000:5000 \
+          mlops-backend:latest
+        sleep 10  # Wait for the server to start
+
     # Set up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.8"
 
-    # Install backend dependencies
-    - name: Install Backend Dependencies
+    # Install Testing Dependencies
+    - name: Install Testing Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    # Run the backend
-    - name: Start Backend
-      run: |
-        nohup python app.py &
-        sleep 10  # Wait for the server to start
+        pip install pytest requests
 
     # Run API tests
     - name: Run API Tests
@@ -39,8 +48,9 @@ jobs:
       run: |
         pytest tests/
 
-    # Cleanup
-    - name: Kill Backend
+    # Stop and remove the Docker container
+    - name: Cleanup
       if: always()
       run: |
-        pkill -f "python app.py"
+        docker stop mlops-backend
+        docker rm mlops-backend
