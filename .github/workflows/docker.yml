@@ -3,7 +3,7 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - main  # Trigger the workflow when changes are pushed to the main branch
+      - main  
 
 jobs:
   build-and-push:
@@ -24,9 +24,9 @@ jobs:
     # Build the Docker image
     - name: Build Docker Image
       run: |
-        docker build -t taimooranwar/mlopsGit-backend:latest .
+        docker build -t taimooranwar/mlopsgit-backend:latest .
 
     # Push the Docker image to Docker Hub
     - name: Push Docker Image
       run: |
-        docker push taimooranwar/mlopsGit-backend:latest
+        docker push taimooranwar/mlopsgit-backend:latest
