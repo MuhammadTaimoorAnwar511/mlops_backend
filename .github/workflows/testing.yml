@@ -33,7 +33,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.8"
+        python-version: "3.9"
 
     # Install Testing Dependencies
     - name: Install Testing Dependencies
@@ -47,6 +47,12 @@ jobs:
         BASE_URL: "http://localhost:5000"
       run: |
         pytest tests/
+        
+    # Print backend logs for debugging
+    - name: Print Backend Logs
+      if: always()
+      run: |
+        docker logs mlops-backend
 
     # Stop and remove the Docker container
     - name: Cleanup
