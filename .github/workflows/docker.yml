@@ -24,9 +24,9 @@ jobs:
     # Build the Docker image
     - name: Build Docker Image
       run: |
-        docker build -t taimooranwar/mlopsgit-backend:latest .
+        docker build -t taimooranwar/mlops-backend:latest .
 
     # Push the Docker image to Docker Hub
     - name: Push Docker Image
       run: |
-        docker push taimooranwar/mlopsgit-backend:latest
+        docker push taimooranwar/mlops-backend:latest
